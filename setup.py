@@ -25,5 +25,6 @@ setup(
     long_description=package_long_description,
     author="redsoxfantom",
     author_email="redsoxfantom@gmail.com",
-    packages=["wakeandwait"]
+    packages=["wakeandwait"],
+    python_requires='>=3.7.3'
 )
