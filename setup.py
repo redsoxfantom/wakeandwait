@@ -19,10 +19,11 @@ with open('README') as f:
     package_long_description=f.read()
 
 setup(
-    name="wakeandwait",
+    name="wakeandwait-redsoxfantom",
     version=package_version,
     description=package_short_description,
     long_description=package_long_description,
+    long_description_content_type='text/markdown',
     author="redsoxfantom",
     author_email="redsoxfantom@gmail.com",
     packages=["wakeandwait"],
