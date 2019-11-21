@@ -22,6 +22,7 @@ setup(
     name="wakeandwait-redsoxfantom",
     version=package_version,
     description=package_short_description,
+    url='https://github.com/redsoxfantom/wakeandwait',
     long_description=package_long_description,
     long_description_content_type='text/markdown',
     author="redsoxfantom",
