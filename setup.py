@@ -4,7 +4,7 @@ import os
 
 package_version="0.0.1+TESTING"
 with open("VERSION") as f:
-    package_version=f.read()
+    package_version=f.read().strip()
 
 cwd = os.path.dirname(os.path.abspath(__file__))
 try:
@@ -15,8 +15,8 @@ except Exception:
 
 package_short_description="Sends a wake on lan signal to a computer and waits for it to come online"
 package_long_description=package_short_description
-with open('README') as f:
-    package_long_description=f.read()
+with open('README.md') as f:
+    package_long_description=f.read().strip()
 
 setup(
     name="wakeandwait-redsoxfantom",
