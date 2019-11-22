@@ -1,5 +1,12 @@
+import struct
+from random import randrange
+import socket
+import sys
 from wakeandwait.waiters.waiter import Waiter
 from wakeandwait.waiters.waiter import WaiterException
+
+# ICMP protocol:
+# https://en.wikipedia.org/wiki/Ping_(networking_utility)#ICMP_packet
 
 class Ping(Waiter):
     def __init__(self,**kwargs):
@@ -9,6 +16,23 @@ class Ping(Waiter):
         self.timeout = 30
         if 'timeout' in kwargs:
             self.timeout = kwargs['timeout']
+        self.my_id = randrange(start=0,stop=65535)
+        try:
+            self.socket = socket.socket(socket.AF_INET,socket.SOCK_RAW,socket.getprotobyname('icmp'))
+        except Exception as ex:
+            if ex.errno == 1: # Permission denied
+                raise Exception("You must be root to use Ping")
+            else:
+                raise
         
     def wait(self):
-        pass
+        seq_num = 0
+        icmp_echo_reply = 0
+
+    def _create_packet(self,seq_num):
+        icmp_echo = 8
+        checksum = 0
+
+        header = struct.pack(
+            "!BBHHH", icmp_echo, 0, checksum, self.my_id, seq_num
+        )
