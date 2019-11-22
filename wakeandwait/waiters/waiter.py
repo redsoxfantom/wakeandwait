@@ -1,5 +1,5 @@
 class Waiter(object):
-    def wait(self, timeout):
+    def wait(self):
         raise NotImplementedError
 
 class WaiterException(Exception):
