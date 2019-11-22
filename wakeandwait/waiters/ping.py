@@ -6,6 +6,9 @@ class Ping(Waiter):
         if 'ip' not in kwargs:
             raise WaiterException("'ip' required when using Ping as a waiter")
         self.target_ip = kwargs['ip']
-
-    def wait(self,timeout):
+        self.timeout = 30
+        if 'timeout' in kwargs:
+            self.timeout = kwargs['timeout']
+        
+    def wait(self):
         pass
