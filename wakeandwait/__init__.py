@@ -4,7 +4,7 @@ from wakeandwait.wakers import waker_factory
 def wakeandwait(waker,waiter,**kwargs):
     waker = waker_factory(waker,**kwargs)
     waiter = waiter_factory(waiter,**kwargs)
-    print(F"Running wakeandwait with waker {waker} and waiter {waiter}")
+    print(F"Running wakeandwait with waker {type(waker).__name__} and waiter {type(waiter).__name__}")
     if not waker.wake():
         print("Waker failed")
         return False

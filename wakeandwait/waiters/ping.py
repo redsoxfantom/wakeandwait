@@ -8,15 +8,18 @@ from wakeandwait.waiters.waiter import WaiterException
 # ICMP protocol:
 # https://en.wikipedia.org/wiki/Ping_(networking_utility)#ICMP_packet
 
-class Ping(Waiter):
+class PingWaiter(Waiter):
     def __init__(self,**kwargs):
         if 'ip' not in kwargs:
             raise WaiterException("'ip' required when using Ping as a waiter")
         self.target_ip = kwargs['ip']
         self.timeout = 30
         if 'timeout' in kwargs:
-            self.timeout = kwargs['timeout']
+            self.timeout = int(kwargs['timeout'])
         self.my_id = randrange(start=0,stop=65535)
+        self.packet_size = 32
+        if 'packet_size' in kwargs:
+            self.packet_size = int(kwargs['packet_size'])
         try:
             self.socket = socket.socket(socket.AF_INET,socket.SOCK_RAW,socket.getprotobyname('icmp'))
         except Exception as ex:
