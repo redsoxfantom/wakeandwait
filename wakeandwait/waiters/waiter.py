@@ -4,7 +4,7 @@ class Waiter(object):
 
 class NullWaiter(Waiter):
     def wait(self):
-        return true
+        return True
 
 class WaiterException(Exception):
     pass
