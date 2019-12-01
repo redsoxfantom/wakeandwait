@@ -39,3 +39,9 @@ class PingWaiter(Waiter):
         header = struct.pack(
             "!BBHHH", icmp_echo, 0, checksum, self.my_id, seq_num
         )
+
+        extra_bytes= []
+        start_val = 0
+        for i in range(start_val, start_val+self.packet_size):
+            extra_bytes += [(i & 0xFF)]
+        data = bytes(extra_bytes)
