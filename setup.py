@@ -29,5 +29,5 @@ setup(
     author_email="redsoxfantom@gmail.com",
     packages=["wakeandwait"],
     python_requires='>=3.7.3',
-    install_requires=['pythonping']
+    install_requires=['pythonping','wakeonlan']
 )
