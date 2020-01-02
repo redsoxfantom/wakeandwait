@@ -1,9 +1,7 @@
-import struct
-from random import randrange
-import socket
 import sys
 from wakeandwait.waiters.waiter import Waiter
 from wakeandwait.waiters.waiter import WaiterException
+from pythonping import ping
 
 # ICMP protocol:
 # https://en.wikipedia.org/wiki/Ping_(networking_utility)#ICMP_packet
@@ -16,32 +14,20 @@ class PingWaiter(Waiter):
         self.timeout = 30
         if 'timeout' in kwargs:
             self.timeout = int(kwargs['timeout'])
-        self.my_id = randrange(start=0,stop=65535)
-        self.packet_size = 32
+        self.num_attempts = 2
+        if 'num_attempts' in kwargs:
+            self.num_attempts = int(kwargs['num_attempts'])
+        self.packet_size = 1
         if 'packet_size' in kwargs:
             self.packet_size = int(kwargs['packet_size'])
-        try:
-            self.socket = socket.socket(socket.AF_INET,socket.SOCK_RAW,socket.getprotobyname('icmp'))
-        except Exception as ex:
-            if ex.errno == 1: # Permission denied
-                raise Exception("You must be root to use Ping")
-            else:
-                raise
         
     def wait(self):
-        seq_num = 0
-        icmp_echo_reply = 0
-
-    def _create_packet(self,seq_num):
-        icmp_echo = 8
-        checksum = 0
-
-        header = struct.pack(
-            "!BBHHH", icmp_echo, 0, checksum, self.my_id, seq_num
-        )
-
-        extra_bytes= []
-        start_val = 0
-        for i in range(start_val, start_val+self.packet_size):
-            extra_bytes += [(i & 0xFF)]
-        data = bytes(extra_bytes)
+        resplist = ping(self.target_ip,
+                    verbose=True,
+                    size=self.packet_size,
+                    timeout=self.timeout,
+                    count = self.num_attempts)
+        success = False
+        for resp in resplist:
+            success |= resp.success
+        return success

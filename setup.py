@@ -28,5 +28,6 @@ setup(
     author="redsoxfantom",
     author_email="redsoxfantom@gmail.com",
     packages=["wakeandwait"],
-    python_requires='>=3.7.3'
+    python_requires='>=3.7.3',
+    install_requires=['pythonping']
 )
