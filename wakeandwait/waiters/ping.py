@@ -1,4 +1,3 @@
-import sys
 from wakeandwait.waiters.waiter import Waiter
 from wakeandwait.waiters.waiter import WaiterException
 from pythonping import ping
