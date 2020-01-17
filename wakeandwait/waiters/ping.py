@@ -22,7 +22,7 @@ class PingWaiter(Waiter):
         
     def wait(self):
         success = False
-        for i in range(0,self.num_attempts):
+        for _i in range(0,self.num_attempts):
             resplist = ping(self.target_ip,
                     verbose=True,
                     size=self.packet_size,
