@@ -21,12 +21,15 @@ class PingWaiter(Waiter):
             self.packet_size = int(kwargs['packet_size'])
         
     def wait(self):
-        resplist = ping(self.target_ip,
+        success = False
+        for i in range(0,self.num_attempts):
+            resplist = ping(self.target_ip,
                     verbose=True,
                     size=self.packet_size,
                     timeout=self.timeout,
-                    count = self.num_attempts)
-        success = False
-        for resp in resplist:
-            success |= resp.success
+                    count = 1)
+            for resp in resplist:
+                success |= resp.success
+            if success:
+                break
         return success
