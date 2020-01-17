@@ -27,7 +27,8 @@ setup(
     long_description_content_type='text/markdown',
     author="redsoxfantom",
     author_email="redsoxfantom@gmail.com",
-    packages=["wakeandwait"],
+    packages=["wakeandwait","wakeandwait.waiters","wakeandwait.wakers"],
     python_requires='>=3.7.3',
-    install_requires=['pythonping','wakeonlan']
+    install_requires=['pythonping','wakeonlan'],
+    scripts=["bin/wolandping"]
 )
